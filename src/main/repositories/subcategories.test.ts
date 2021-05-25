@@ -1,10 +1,10 @@
-import chai, { expect } from "chai";
-import sinon from "sinon";
-import faker from "faker";
-import SubCategoriesRepository from "./subcategories";
-import { SubCategory } from "../types";
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import faker from 'faker';
+import SubCategoriesRepository from './subcategories';
+import { SubCategory } from '../types';
 
-const Models = require("../models/index.js");
+const Models = require('../models/index.js');
 
 describe('SubCategoriesRepository', () => {
   const stubValue: SubCategory = {
@@ -30,12 +30,12 @@ describe('SubCategoriesRepository', () => {
       created_at: faker.date.past().toString(),
       updated_at: faker.date.past().toString(),
     },
-  ]
+  ];
 
   describe('get', () => {
     it('should get all subCategories from the db', async () => {
-      const stub = sinon.stub(Models.SubCategories, "findAll").returns(stubValues);
-      const subCategories = await SubCategoriesRepository.get({})
+      const stub = sinon.stub(Models.SubCategories, 'findAll').returns(stubValues);
+      const subCategories = await SubCategoriesRepository.get({});
       expect(stub.calledOnce).to.be.true;
       subCategories.forEach((subCategory: SubCategory, index: number) => {
         expect(subCategory.id).to.equal(stubValues[index].id);
@@ -43,16 +43,16 @@ describe('SubCategoriesRepository', () => {
         expect(subCategory.description).to.equal(stubValues[index].description);
         expect(subCategory.created_at).to.equal(stubValues[index].created_at);
         expect(subCategory.updated_at).to.equal(stubValues[index].updated_at);
-      })
+      });
     });
   });
 
   describe('getOne', () => {
     it('should get all subCategories from the db', async () => {
-      const stub = sinon.stub(Models.SubCategories, "findOne").returns(stubValue);
+      const stub = sinon.stub(Models.SubCategories, 'findOne').returns(stubValue);
       const subCategory = await SubCategoriesRepository.getOne({
-        id: stubValue.id
-      })
+        id: stubValue.id,
+      });
       expect(stub.calledOnce).to.be.true;
       expect(subCategory.id).to.equal(stubValue.id);
       expect(subCategory.name).to.equal(stubValue.name);
@@ -64,8 +64,8 @@ describe('SubCategoriesRepository', () => {
 
   describe('save', () => {
     it('should add new subCategory to the db', async () => {
-      const stub = sinon.stub(Models.SubCategories, "create").returns(stubValue);
-      const subCategory = await SubCategoriesRepository.save(stubValue)
+      const stub = sinon.stub(Models.SubCategories, 'create').returns(stubValue);
+      const subCategory = await SubCategoriesRepository.save(stubValue);
       expect(stub.calledOnce).to.be.true;
       expect(subCategory.id).to.equal(stubValue.id);
       expect(subCategory.name).to.equal(stubValue.name);
@@ -77,9 +77,9 @@ describe('SubCategoriesRepository', () => {
 
   describe('update', () => {
     it('should update one subCategory from the db', async () => {
-      const stub = sinon.stub(Models.SubCategories, "update").returns([1]);
+      const stub = sinon.stub(Models.SubCategories, 'update').returns([1]);
       const subCategory = await SubCategoriesRepository.update(stubValue, {
-        id: stubValue.id
+        id: stubValue.id,
       });
       expect(stub.calledOnce).to.be.true;
       expect(subCategory).to.be.true;
@@ -88,11 +88,10 @@ describe('SubCategoriesRepository', () => {
 
   describe('delete', () => {
     it('should delete one subCategory from the db', async () => {
-      const stub = sinon.stub(Models.SubCategories, "destroy").returns([1]);
+      const stub = sinon.stub(Models.SubCategories, 'destroy').returns([1]);
       const subCategory = await SubCategoriesRepository.delete(stubValue);
       expect(stub.calledOnce).to.be.true;
       expect(subCategory).to.be.true;
     });
   });
-  
-})
+});
