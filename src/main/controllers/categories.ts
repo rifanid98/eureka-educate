@@ -14,6 +14,7 @@ class CategoriesController {
 
   /**
    * Get
+   * @route GET /categories
    * @param {Request} req
    * @param {Response} res
    * @returns {Response}
@@ -29,6 +30,7 @@ class CategoriesController {
 
   /**
    * Post
+   * @route POST /categories
    * @param {Request} req
    * @param {Response} res
    * @returns {Response}
@@ -49,6 +51,7 @@ class CategoriesController {
 
   /**
    * Update
+   * @route PATCH /categories/:id
    * @param {Request} req
    * @param {Response} res
    * @returns {Response}
@@ -73,7 +76,8 @@ class CategoriesController {
   }
 
   /**
-   * Update
+   * Delete
+   * @route DELETE /categories/:id
    * @param {Request} req
    * @param {Response} res
    * @returns {Response}
