@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.categories, { as: "category", foreignKey: "category_id"});
-      this.belongsTo(models.sub_categories, { as: "sub_category", foreignKey: "sub_category_id"});
+      this.belongsTo(models.Categories, { as: "category", foreignKey: "category_id"});
+      this.belongsTo(models.SubCategories, { as: "sub_category", foreignKey: "sub_category_id"});
     }
   };
   Questions.init({
@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     },
     updated_at: {
       type: DataTypes.DATE,
