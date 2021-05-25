@@ -4,7 +4,7 @@ export type Category = {
   descriptions?: string;
   created_at?: string;
   updated_at?: string;
-}
+};
 
 export type SubCategory = {
   id?: number;
@@ -12,18 +12,17 @@ export type SubCategory = {
   descriptions?: string;
   created_at?: string;
   updated_at?: string;
-}
+};
 
 export enum QuestionAnswer {
-  A = "a",
-  B = "b",
-  C = "c",
-  D = "D"
+  A = 'a',
+  B = 'b',
+  C = 'c',
+  D = 'D',
 }
 
-
 export type Question = {
-  [x: string]: any,
+  [x: string]: any;
   id?: number;
   question?: string;
   answer_a?: string;
@@ -36,4 +35,4 @@ export type Question = {
   sub_category_id?: number;
   created_at?: string;
   updated_at?: string;
-}
+};

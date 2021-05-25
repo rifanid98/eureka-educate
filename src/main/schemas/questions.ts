@@ -25,18 +25,18 @@ class Schemas {
   static id = {
     id: Joi.number().min(1).required(),
   };
-  
+
   static post = {
     question: Joi.string().trim().required(),
     answer_a: Joi.string().trim().required(),
     answer_b: Joi.string().trim().required(),
     answer_c: Joi.string().trim().required(),
     answer_d: Joi.string().trim().required(),
-    correct_answer_pg: Joi.string().trim().valid("a", "b", "c", "d").required(),
+    correct_answer_pg: Joi.string().trim().valid('a', 'b', 'c', 'd').required(),
     correct_answer_essay: Joi.string().trim().required(),
     category_id: Joi.number().min(1).required(),
     sub_category_id: Joi.number().min(1).required(),
-  }
+  };
 
   static patch: Record<string, Joi.AnySchema> = {
     id: Joi.number().min(1).required(),
@@ -45,11 +45,11 @@ class Schemas {
     answer_b: Joi.string().trim().required(),
     answer_c: Joi.string().trim().required(),
     answer_d: Joi.string().trim().required(),
-    correct_answer_pg: Joi.string().trim().valid("a", "b", "c", "d").required(),
+    correct_answer_pg: Joi.string().trim().valid('a', 'b', 'c', 'd').required(),
     correct_answer_essay: Joi.string().trim().required(),
     category_id: Joi.number().min(1).required(),
     sub_category_id: Joi.number().min(1).required(),
-  }
+  };
 }
 
 export default Schemas;

@@ -1,28 +1,28 @@
-import { Sequelize } from "sequelize";
-import { Question } from "../types";
+import { Sequelize } from 'sequelize';
+import { Question } from '../types';
 
 const Models = require('../models');
 
 class QuestionsRepositories {
-  private defaultAttributes = [Sequelize.literal(`"Questions".*`)]
+  private defaultAttributes = [Sequelize.literal(`"Questions".*`)];
 
   /**
    * Get all questions
-   * @param {Question} where 
-   * @param {Record<string, any>} attribute 
-   * @param {Record<string, any>} options 
+   * @param {Question} where
+   * @param {Record<string, any>} attribute
+   * @param {Record<string, any>} options
    * @returns {Promise<Question[]>}
    */
   get(where: Question, attribute?: Record<string, any>, options?: Record<string, any>): Promise<Question[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const attributes = attribute ? attribute : this.defaultAttributes;
+        const attributes = attribute || this.defaultAttributes;
 
         const questions = await Models.Questions.findAll({
           attributes,
           where,
           raw: true,
-          ...options
+          ...options,
         });
 
         resolve(questions);
@@ -34,21 +34,21 @@ class QuestionsRepositories {
 
   /**
    * Get one of question
-   * @param {Question} where 
-   * @param {Record<string, any>} attribute 
-   * @param {Record<string, any>} options 
+   * @param {Question} where
+   * @param {Record<string, any>} attribute
+   * @param {Record<string, any>} options
    * @returns {Promise<Question>}
    */
   getOne(where: Question, attribute?: Record<string, any>, options?: Record<string, any>): Promise<Question> {
     return new Promise(async (resolve, reject) => {
       try {
-        const attributes = attribute ? attribute : this.defaultAttributes;
+        const attributes = attribute || this.defaultAttributes;
 
         const question = await Models.Questions.findOne({
           attributes,
           where,
           raw: true,
-          ...options
+          ...options,
         });
 
         resolve(question);
@@ -60,20 +60,23 @@ class QuestionsRepositories {
 
   /**
    * Save one question
-   * @param {Question} payload 
-   * @param {Record<string, any>} options 
+   * @param {Question} payload
+   * @param {Record<string, any>} options
    * @returns {Promise<Question>}
    */
-   save(payload: Question, options?: Record<string, any>): Promise<Question> {
+  save(payload: Question, options?: Record<string, any>): Promise<Question> {
     return new Promise(async (resolve, reject) => {
       try {
-        const question = await Models.Questions.create({
-          ...payload
-        }, {
-          returning: true,
-          raw: true,
-          ...options
-        });
+        const question = await Models.Questions.create(
+          {
+            ...payload,
+          },
+          {
+            returning: true,
+            raw: true,
+            ...options,
+          },
+        );
 
         resolve(question);
       } catch (error) {
@@ -84,22 +87,25 @@ class QuestionsRepositories {
 
   /**
    * Update one question
-   * @param {Question} payload 
-   * @param {Question} where 
-   * @param {Record<string, any>} options 
+   * @param {Question} payload
+   * @param {Question} where
+   * @param {Record<string, any>} options
    * @returns {Promise<boolean>}
    */
   update(payload: Question, where?: Question, options?: Record<string, any>): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
-        const question = await Models.Questions.update({
-          ...payload,
-          updated_at: Sequelize.literal(`CURRENT_TIMESTAMP`)
-        }, {
-          where,
-          raw: true,
-          ...options
-        });
+        const question = await Models.Questions.update(
+          {
+            ...payload,
+            updated_at: Sequelize.literal(`CURRENT_TIMESTAMP`),
+          },
+          {
+            where,
+            raw: true,
+            ...options,
+          },
+        );
 
         if (question[0] < 1) {
           resolve(false);
@@ -114,8 +120,8 @@ class QuestionsRepositories {
 
   /**
    * Delete one question
-   * @param {Question} where 
-   * @param {Record<string, any>} options 
+   * @param {Question} where
+   * @param {Record<string, any>} options
    * @returns {Promise<boolean>}
    */
   delete(where?: Question, options?: Record<string, any>): Promise<boolean> {
@@ -123,7 +129,7 @@ class QuestionsRepositories {
       try {
         const question = await Models.Questions.destroy({
           where,
-          ...options
+          ...options,
         });
 
         if (question[0] < 1) {
@@ -136,8 +142,6 @@ class QuestionsRepositories {
       }
     });
   }
-
-
 }
 
 export default new QuestionsRepositories();

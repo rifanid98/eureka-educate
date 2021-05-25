@@ -1,4 +1,5 @@
 /** Local Libraries */
+import Joi from 'joi';
 import { IResponse, Response as Resp } from '../utils/helpers/response';
 import { Question } from '../types';
 
@@ -8,10 +9,8 @@ import CategoriesRepository from '../repositories/categories';
 import SubCategoriesRepository from '../repositories/subcategories';
 import Helpers from '../utils/helpers/helpers';
 import Schemas from '../schemas/questions';
-import Joi from 'joi';
 
 class CategpriesServices {
-
   /**
    * Get
    * @returns {Promise<IResponse>}
@@ -34,16 +33,16 @@ class CategpriesServices {
   async getById(id: number): Promise<IResponse> {
     try {
       const data = await QuestionsRepository.getOne({
-        id: id
+        id,
       });
 
       if (!data) {
-        return Resp.notfound(`Data questions with id ${id} not found`);
+        return Resp.notfound(`Questions data with id ${id} not found`);
       }
-      
+
       return Resp.success({ data });
     } catch (error) {
-      console.log(error, `<<< ${__filename} | get()`);
+      console.log(error, `<<< ${__filename} | getById()`);
       return Resp.error();
     }
   }
@@ -64,43 +63,49 @@ class CategpriesServices {
       if (payload.correct_answer_pg) {
         double += 1;
 
-        if (
-          !payload.answer_a ||
-          !payload.answer_b ||
-          !payload.answer_c ||
-          !payload.answer_d
-        ) {
-          return Resp.badrequest("Answer A, B, C and D must be filled");
+        if (!payload.answer_a || !payload.answer_b || !payload.answer_c || !payload.answer_d) {
+          return Resp.badrequest('Answer A, B, C and D must be filled');
         }
       }
 
       if (double >= 2) {
-        return Resp.badrequest("cannot insert correct_answer_essay and correct_answer_pg simultaneously, please choose one of them.")
+        return Resp.badrequest(
+          'cannot insert correct_answer_essay and correct_answer_pg simultaneously, please choose one of them.',
+        );
       }
 
-      const category = await CategoriesRepository.getOne({
-        id: payload.category_id
-      }, ["id"])
+      const category = await CategoriesRepository.getOne(
+        {
+          id: payload.category_id,
+        },
+        ['id'],
+      );
 
       if (!category) {
-        return Resp.notfound(`Category data with id ${payload.category_id} is not found`)
-      }
-      
-      const subCategory = await SubCategoriesRepository.getOne({
-        id: payload.sub_category_id
-      }, ["id"])
-      
-      if (!subCategory) {
-        return Resp.notfound(`SubCategory data with id ${payload.sub_category_id} is not found`)
+        return Resp.notfound(`Category data with id ${payload.category_id} is not found`);
       }
 
-      const question = await QuestionsRepository.getOne({
-        question: payload.question
-      }, ["id"]);
+      const subCategory = await SubCategoriesRepository.getOne(
+        {
+          id: payload.sub_category_id,
+        },
+        ['id'],
+      );
+
+      if (!subCategory) {
+        return Resp.notfound(`SubCategory data with id ${payload.sub_category_id} is not found`);
+      }
+
+      const question = await QuestionsRepository.getOne(
+        {
+          question: payload.question,
+        },
+        ['id'],
+      );
 
       if (question) {
         return Resp.conflict(`Question '${payload.question}' already exists`);
-      }      
+      }
 
       const data = await QuestionsRepository.save(payload);
       return Resp.success({ data });
@@ -117,10 +122,10 @@ class CategpriesServices {
    */
   async patch(payload: Question): Promise<IResponse> {
     try {
-      let question: Question = await QuestionsRepository.getOne({
-        id: payload.id
+      const question: Question = await QuestionsRepository.getOne({
+        id: payload.id,
       });
-      
+
       if (!question) {
         return Resp.notfound(`question data with id ${payload.id} is not found`);
       }
@@ -130,32 +135,30 @@ class CategpriesServices {
 
       const questionKeys = Object.keys(question);
 
-      let schema: Record<string, Joi.AnySchema> = {};
+      const schema: Record<string, Joi.AnySchema> = {};
 
       // Check, any column that has its contents
       questionKeys.forEach((item: string) => {
-        if (question[item] &&
-            question[item] !== null &&
-            question[item].toString().length > 0) {
+        if (question[item] && question[item] !== null && question[item].toString().length > 0) {
           schema[item] = Schemas.patch[item];
         }
       });
 
       type ValidationResult = {
-        invalid: boolean, 
-        result: IResponse
-      }
+        invalid: boolean;
+        result: IResponse;
+      };
 
-      var { invalid, result }: ValidationResult = await Helpers.validateBody(schema, payload);
+      const { invalid, result }: ValidationResult = await Helpers.validateBody(schema, payload);
       if (invalid) return result;
-      
+
       const data = await QuestionsRepository.update(payload, {
-        id: question.id
+        id: question.id,
       });
 
       return Resp.success({ data });
     } catch (error) {
-      console.log(error, `<<< ${__filename} | post()`);
+      console.log(error, `<<< ${__filename} | patch()`);
       return Resp.error();
     }
   }
@@ -167,8 +170,8 @@ class CategpriesServices {
    */
   async delete(payload: Question): Promise<IResponse> {
     try {
-      let question = await QuestionsRepository.getOne({
-        id: payload.id
+      const question = await QuestionsRepository.getOne({
+        id: payload.id,
       });
 
       if (!question) {
@@ -181,13 +184,12 @@ class CategpriesServices {
         return Resp.error(`Data question with id ${payload.id} failed to be deleted`);
       }
 
-      return Resp.success({ message: "Question data deleted successfully" });
+      return Resp.success({ message: 'Question data deleted successfully' });
     } catch (error) {
-      console.log(error, `<<< ${__filename} | post()`);
+      console.log(error, `<<< ${__filename} | delete()`);
       return Resp.error();
     }
   }
-  
 }
 
 export default new CategpriesServices();

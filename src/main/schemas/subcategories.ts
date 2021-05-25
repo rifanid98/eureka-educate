@@ -25,16 +25,16 @@ class Schemas {
   static id = {
     id: Joi.number().min(1).required(),
   };
-  
+
   static post = {
     name: Joi.string().trim().required(),
     description: Joi.string().trim().required(),
-  }
+  };
 
   static patch = {
     name: Joi.string().trim().required(),
     description: Joi.string().trim().required(),
-  }
+  };
 }
 
 export default Schemas;

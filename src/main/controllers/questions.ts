@@ -12,7 +12,6 @@ import Schemas from '../schemas/questions';
 import { Question } from '../types';
 
 class QuestionsController {
-
   /**
    * Get
    * @route GET /questions
@@ -20,7 +19,7 @@ class QuestionsController {
    * @param {Response} res
    * @returns {Response}
    */
-   async get(_: Request, res: Response): Promise<Response> {
+  async get(_: Request, res: Response): Promise<Response> {
     try {
       const data = await QuestionsServices.get();
       return res.status(Status.success).send(data);
@@ -40,7 +39,7 @@ class QuestionsController {
     try {
       const params = req.params;
 
-      var { invalid, result } = await Helpers.validateBody(Schemas.id, {id: params.id});
+      const { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
       if (invalid) return res.status(result.status).send(result);
 
       const data = await QuestionsServices.getById(Number(params.id));
@@ -57,17 +56,20 @@ class QuestionsController {
    * @param {Response} res
    * @returns {Response}
    */
-   async post(req: Request, res: Response): Promise<Response> {
+  async post(req: Request, res: Response): Promise<Response> {
     try {
       const body: Question = req.body;
 
       if (!body.category_id || !body.sub_category_id) {
-        return res.status(Status.badrequest).send(Resp.badrequest("category_id and sub_category_id is required"));
+        return res.status(Status.badrequest).send(Resp.badrequest('category_id and sub_category_id is required'));
       }
-      
-      var { invalid, result } = await Helpers.validateBody({
-        question: Schemas.post.question
-      }, { question: body.question });
+
+      var { invalid, result } = await Helpers.validateBody(
+        {
+          question: Schemas.post.question,
+        },
+        { question: body.question },
+      );
       if (invalid) return res.status(result.status).send(result);
 
       const fieldsToPatch = Object.keys(body);
@@ -97,19 +99,22 @@ class QuestionsController {
       if (invalid) return res.status(result.status).send(result);
 
       if (!body.category_id || !body.sub_category_id) {
-        return res.status(Status.badrequest).send(Resp.badrequest("category_id and sub_category_id is required"));
+        return res.status(Status.badrequest).send(Resp.badrequest('category_id and sub_category_id is required'));
       }
-      
-      var { invalid, result } = await Helpers.validateBody({
-        question: Schemas.post.question
-      }, { question: body.question });
+
+      var { invalid, result } = await Helpers.validateBody(
+        {
+          question: Schemas.post.question,
+        },
+        { question: body.question },
+      );
       if (invalid) return res.status(result.status).send(result);
 
       const fieldsToPatch = Object.keys(body);
       var { invalid, result } = await Helpers.validateBody(Schemas.patch, body, fieldsToPatch);
       if (invalid) return res.status(result.status).send(result);
 
-      const data = await QuestionsServices.patch({...body, id: Number(params.id)});
+      const data = await QuestionsServices.patch({ ...body, id: Number(params.id) });
       return res.status(Status.success).send(data);
     } catch (error) {
       return res.status(Status.error).send(Resp.error());
@@ -127,16 +132,15 @@ class QuestionsController {
     try {
       const params = req.params;
 
-      var { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
+      const { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
       if (invalid) return res.status(result.status).send(result);
 
-      const data = await QuestionsServices.delete({id: Number(params.id!)});
+      const data = await QuestionsServices.delete({ id: Number(params.id!) });
       return res.status(Status.success).send(data);
     } catch (error) {
       return res.status(Status.error).send(Resp.error());
     }
   }
-  
 }
 
 export default new QuestionsController();
