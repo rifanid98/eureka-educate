@@ -1,5 +1,9 @@
+/** Libraries */
 import { Router } from 'express';
+
+/** Routes */
 import CategoriesRoutes from './categories';
+import SubCategoriesRoutes from './subcategories';
 
 class AppRouter {
   public router: Router;
@@ -18,6 +22,7 @@ class AppRouter {
    */
   public routes() {
     this.router.use('/categories', CategoriesRoutes);
+    this.router.use('/subcategories', SubCategoriesRoutes);
   }
 }
 
