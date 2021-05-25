@@ -6,8 +6,8 @@ import morgan from 'morgan';
 import compression from 'compression';
 import { config as dotenv } from 'dotenv';
 
-import Status from './utils/helpers/Status';
-import Routes from './routes/Index';
+import Status from './utils/helpers/status';
+import Routes from './routes';
 
 class App {
   public app: Application;
