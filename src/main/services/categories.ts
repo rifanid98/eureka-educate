@@ -6,7 +6,6 @@ import CategoriesRepository from '../repositories/categories';
 import { Category } from '../types';
 
 class CategoriesServices {
-
   /**
    * Get
    * @returns {Promise<IResponse>}
@@ -17,7 +16,29 @@ class CategoriesServices {
       return Resp.success({ data });
     } catch (error) {
       console.log(error, `<<< ${__filename} | get()`);
-      return Resp.error()
+      return Resp.error();
+    }
+  }
+
+  /**
+   * Get one by id
+   * @param {number} id
+   * @returns {Promise<IResponse>}
+   */
+  async getById(id: number): Promise<IResponse> {
+    try {
+      const data = await CategoriesRepository.getOne({
+        id,
+      });
+
+      if (!data) {
+        return Resp.notfound(`Categories data with id ${id} not found`);
+      }
+
+      return Resp.success({ data });
+    } catch (error) {
+      console.log(error, `<<< ${__filename} | getById()`);
+      return Resp.error();
     }
   }
 
@@ -29,7 +50,7 @@ class CategoriesServices {
   async post(payload: Category): Promise<IResponse> {
     try {
       const category = await CategoriesRepository.getOne({
-        name: payload.name
+        name: payload.name,
       });
 
       if (category) {
@@ -52,7 +73,7 @@ class CategoriesServices {
   async patch(payload: Category): Promise<IResponse> {
     try {
       let category = await CategoriesRepository.getOne({
-        id: payload.id
+        id: payload.id,
       });
 
       if (!category) {
@@ -60,20 +81,20 @@ class CategoriesServices {
       }
 
       const data = await CategoriesRepository.update(payload, {
-        id: category.id
+        id: category.id,
       });
 
       if (!data) {
-        return Resp.error("Failed to update category data");
+        return Resp.error('Failed to update category data');
       }
 
       category = await CategoriesRepository.getOne({
-        id: payload.id
+        id: payload.id,
       });
 
       return Resp.success({ data: category });
     } catch (error) {
-      console.log(error, `<<< ${__filename} | post()`);
+      console.log(error, `<<< ${__filename} | patch()`);
       return Resp.error();
     }
   }
@@ -85,8 +106,8 @@ class CategoriesServices {
    */
   async delete(payload: Category): Promise<IResponse> {
     try {
-      let category = await CategoriesRepository.getOne({
-        id: payload.id
+      const category = await CategoriesRepository.getOne({
+        id: payload.id,
       });
 
       if (!category) {
@@ -99,13 +120,12 @@ class CategoriesServices {
         return Resp.error(`Data category with id ${payload.id} failed to be deleted`);
       }
 
-      return Resp.success({ message: "Category data deleted successfully" });
+      return Resp.success({ message: 'Category data deleted successfully' });
     } catch (error) {
-      console.log(error, `<<< ${__filename} | post()`);
+      console.log(error, `<<< ${__filename} | delete()`);
       return Resp.error();
     }
   }
-  
 }
 
 export default new CategoriesServices();

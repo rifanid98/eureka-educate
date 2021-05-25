@@ -11,7 +11,6 @@ import Helpers from '../utils/helpers/helpers';
 import Schemas from '../schemas/subcategories';
 
 class SubCategoriesController {
-
   /**
    * Get
    * @route GET /subcategories
@@ -19,9 +18,30 @@ class SubCategoriesController {
    * @param {Response} res
    * @returns {Response}
    */
-  async get(req: Request, res: Response): Promise<Response> {
+  async get(_: Request, res: Response): Promise<Response> {
     try {
       const data = await SubCategoriesServices.get();
+      return res.status(Status.success).send(data);
+    } catch (error) {
+      return res.status(Status.error).send(Resp.error());
+    }
+  }
+
+  /**
+   * Get one data (by id)
+   * @route GET /subcategories/:id
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Response}
+   */
+  async getById(req: Request, res: Response): Promise<Response> {
+    try {
+      const params = req.params;
+
+      const { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
+      if (invalid) return res.status(result.status).send(result);
+
+      const data = await SubCategoriesServices.getById(Number(params.id));
       return res.status(Status.success).send(data);
     } catch (error) {
       return res.status(Status.error).send(Resp.error());
@@ -35,11 +55,11 @@ class SubCategoriesController {
    * @param {Response} res
    * @returns {Response}
    */
-   async post(req: Request, res: Response): Promise<Response> {
+  async post(req: Request, res: Response): Promise<Response> {
     try {
       const body = req.body;
 
-      var { invalid, result } = await Helpers.validateBody(Schemas.post, body);
+      const { invalid, result } = await Helpers.validateBody(Schemas.post, body);
       if (invalid) return res.status(result.status).send(result);
 
       const data = await SubCategoriesServices.post(body);
@@ -68,7 +88,7 @@ class SubCategoriesController {
       var { invalid, result } = await Helpers.validateBody(Schemas.patch, body, fieldsToPatch);
       if (invalid) return res.status(result.status).send(result);
 
-      const data = await SubCategoriesServices.patch({...body, id: params.id});
+      const data = await SubCategoriesServices.patch({ ...body, id: params.id });
       return res.status(Status.success).send(data);
     } catch (error) {
       return res.status(Status.error).send(Resp.error());
@@ -86,16 +106,15 @@ class SubCategoriesController {
     try {
       const params = req.params;
 
-      var { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
+      const { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
       if (invalid) return res.status(result.status).send(result);
 
-      const data = await SubCategoriesServices.delete({id: Number(params.id!)});
+      const data = await SubCategoriesServices.delete({ id: Number(params.id!) });
       return res.status(Status.success).send(data);
     } catch (error) {
       return res.status(Status.error).send(Resp.error());
     }
   }
-  
 }
 
 export default new SubCategoriesController();

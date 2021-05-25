@@ -23,6 +23,7 @@ class CategoriesRouter {
    */
   public routes() {
     this.router.get('/', CategoriesController.get);
+    this.router.get('/:id', CategoriesController.getById);
     this.router.post('/', CategoriesController.post);
     this.router.patch('/:id', CategoriesController.patch);
     this.router.delete('/:id', CategoriesController.delete);

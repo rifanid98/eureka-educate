@@ -11,7 +11,6 @@ import Helpers from '../utils/helpers/helpers';
 import Schemas from '../schemas/categories';
 
 class CategoriesController {
-
   /**
    * Get
    * @route GET /categories
@@ -29,17 +28,38 @@ class CategoriesController {
   }
 
   /**
+   * Get one data (by id)
+   * @route GET /categories/:id
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Response}
+   */
+  async getById(req: Request, res: Response): Promise<Response> {
+    try {
+      const params = req.params;
+
+      const { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
+      if (invalid) return res.status(result.status).send(result);
+
+      const data = await CategoriesServices.getById(Number(params.id));
+      return res.status(Status.success).send(data);
+    } catch (error) {
+      return res.status(Status.error).send(Resp.error());
+    }
+  }
+
+  /**
    * Post
    * @route POST /categories
    * @param {Request} req
    * @param {Response} res
    * @returns {Response}
    */
-   async post(req: Request, res: Response): Promise<Response> {
+  async post(req: Request, res: Response): Promise<Response> {
     try {
       const body = req.body;
 
-      var { invalid, result } = await Helpers.validateBody(Schemas.post, body);
+      const { invalid, result } = await Helpers.validateBody(Schemas.post, body);
       if (invalid) return res.status(result.status).send(result);
 
       const data = await CategoriesServices.post(body);
@@ -68,7 +88,7 @@ class CategoriesController {
       var { invalid, result } = await Helpers.validateBody(Schemas.patch, body, fieldsToPatch);
       if (invalid) return res.status(result.status).send(result);
 
-      const data = await CategoriesServices.patch({...body, id: params.id});
+      const data = await CategoriesServices.patch({ ...body, id: params.id });
       return res.status(Status.success).send(data);
     } catch (error) {
       return res.status(Status.error).send(Resp.error());
@@ -86,16 +106,15 @@ class CategoriesController {
     try {
       const params = req.params;
 
-      var { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
+      const { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
       if (invalid) return res.status(result.status).send(result);
 
-      const data = await CategoriesServices.delete({id: Number(params.id!)});
+      const data = await CategoriesServices.delete({ id: Number(params.id!) });
       return res.status(Status.success).send(data);
     } catch (error) {
       return res.status(Status.error).send(Resp.error());
     }
   }
-  
 }
 
 export default new CategoriesController();

@@ -1,28 +1,28 @@
-import { Sequelize } from "sequelize";
-import { Category } from "../types";
+import { Sequelize } from 'sequelize';
+import { Category } from '../types';
 
 const Models = require('../models');
 
 class Repositories {
-  private defaultAttributes = [Sequelize.literal(`"Categories".*`)]
+  private defaultAttributes = [Sequelize.literal(`"Categories".*`)];
 
   /**
    * Get all categories
-   * @param {Category} where 
-   * @param {Record<string, any>} attribute 
-   * @param {Record<string, any>} options 
+   * @param {Category} where
+   * @param {Record<string, any>} attribute
+   * @param {Record<string, any>} options
    * @returns {Promise<Category[]>}
    */
   get(where: Category, attribute?: Record<string, any>, options?: Record<string, any>): Promise<Category[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const attributes = attribute ? attribute : this.defaultAttributes;
+        const attributes = attribute || this.defaultAttributes;
 
         const categories = await Models.Categories.findAll({
           attributes,
           where,
           raw: true,
-          ...options
+          ...options,
         });
 
         resolve(categories);
@@ -34,21 +34,21 @@ class Repositories {
 
   /**
    * Get one of category
-   * @param {Category} where 
-   * @param {Record<string, any>} attribute 
-   * @param {Record<string, any>} options 
+   * @param {Category} where
+   * @param {Record<string, any>} attribute
+   * @param {Record<string, any>} options
    * @returns {Promise<Category>}
    */
   getOne(where: Category, attribute?: Record<string, any>, options?: Record<string, any>): Promise<Category> {
     return new Promise(async (resolve, reject) => {
       try {
-        const attributes = attribute ? attribute : this.defaultAttributes;
+        const attributes = attribute || this.defaultAttributes;
 
         const category = await Models.Categories.findOne({
           attributes,
           where,
           raw: true,
-          ...options
+          ...options,
         });
 
         resolve(category);
@@ -60,20 +60,23 @@ class Repositories {
 
   /**
    * Save one category
-   * @param {Category} payload 
-   * @param {Record<string, any>} options 
+   * @param {Category} payload
+   * @param {Record<string, any>} options
    * @returns {Promise<Category>}
    */
-   save(payload: Category, options?: Record<string, any>): Promise<Category> {
+  save(payload: Category, options?: Record<string, any>): Promise<Category> {
     return new Promise(async (resolve, reject) => {
       try {
-        const category = await Models.Categories.create({
-          ...payload
-        }, {
-          returning: true,
-          raw: true,
-          ...options
-        });
+        const category = await Models.Categories.create(
+          {
+            ...payload,
+          },
+          {
+            returning: true,
+            raw: true,
+            ...options,
+          },
+        );
 
         resolve(category);
       } catch (error) {
@@ -84,22 +87,25 @@ class Repositories {
 
   /**
    * Update one category
-   * @param {Category} payload 
-   * @param {Category} where 
-   * @param {Record<string, any>} options 
+   * @param {Category} payload
+   * @param {Category} where
+   * @param {Record<string, any>} options
    * @returns {Promise<boolean>}
    */
   update(payload: Category, where?: Category, options?: Record<string, any>): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
-        const category = await Models.Categories.update({
-          ...payload,
-          updated_at: Sequelize.literal(`CURRENT_TIMESTAMP`)
-        }, {
-          where,
-          raw: true,
-          ...options
-        });
+        const category = await Models.Categories.update(
+          {
+            ...payload,
+            updated_at: Sequelize.literal(`CURRENT_TIMESTAMP`),
+          },
+          {
+            where,
+            raw: true,
+            ...options,
+          },
+        );
 
         if (category[0] < 1) {
           resolve(false);
@@ -114,8 +120,8 @@ class Repositories {
 
   /**
    * Delete one category
-   * @param {Category} where 
-   * @param {Record<string, any>} options 
+   * @param {Category} where
+   * @param {Record<string, any>} options
    * @returns {Promise<boolean>}
    */
   delete(where?: Category, options?: Record<string, any>): Promise<boolean> {
@@ -123,7 +129,7 @@ class Repositories {
       try {
         const category = await Models.Categories.destroy({
           where,
-          ...options
+          ...options,
         });
 
         if (category[0] < 1) {
@@ -136,8 +142,6 @@ class Repositories {
       }
     });
   }
-
-
 }
 
 export default new Repositories();

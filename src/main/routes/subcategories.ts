@@ -23,6 +23,7 @@ class SubCategoriesRouter {
    */
   public routes() {
     this.router.get('/', SubCategoriesController.get);
+    this.router.get('/:id', SubCategoriesController.getById);
     this.router.post('/', SubCategoriesController.post);
     this.router.patch('/:id', SubCategoriesController.patch);
     this.router.delete('/:id', SubCategoriesController.delete);
