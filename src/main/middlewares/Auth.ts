@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import Schemas from '../schemas/Example';
-import Helpers from '../utils/helpers/Helpers';
-import { Response as Resp } from '../utils/helpers/Response';
-import S from '../utils/helpers/Status';
-import Token from '../utils/helpers/Token';
+import Schemas from '../schemas/auth';
+import Helpers from '../utils/helpers/helpers';
+import { Response as Resp } from '../utils/helpers/response';
+import S from '../utils/helpers/status';
+import Token from '../utils/helpers/token';
 
 class AuthMiddleware {
   public async verifyToken(req: Request, res: Response, next: NextFunction) {
