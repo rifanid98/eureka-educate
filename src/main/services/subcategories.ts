@@ -2,7 +2,7 @@
 import { IResponse, Response as Resp } from '../utils/helpers/response';
 
 /** Repositories */
-import SubCategoriesRepository from '../repositories/categories';
+import SubCategoriesRepository from '../repositories/subcategories';
 import { SubCategory } from '../types';
 
 class CategpriesServices {
@@ -14,10 +14,10 @@ class CategpriesServices {
   async get(): Promise<IResponse> {
     try {
       const data = await SubCategoriesRepository.get({});
-      return Promise.resolve(Resp.success({ data }));
+      return Resp.success({ data });
     } catch (error) {
       console.log(error, `<<< ${__filename} | get()`);
-      return Promise.reject(Resp.error());
+      return Resp.error();
     }
   }
 
@@ -37,10 +37,10 @@ class CategpriesServices {
       }
 
       const data = await SubCategoriesRepository.save(payload);
-      return Promise.resolve(Resp.success({ data }));
+      return Resp.success({ data });
     } catch (error) {
       console.log(error, `<<< ${__filename} | post()`);
-      return Promise.reject(Resp.error());
+      return Resp.error();
     }
   }
 
@@ -71,10 +71,10 @@ class CategpriesServices {
         id: payload.id
       });
 
-      return Promise.resolve(Resp.success({ data: subcategory }));
+      return Resp.success({ data: subcategory });
     } catch (error) {
       console.log(error, `<<< ${__filename} | post()`);
-      return Promise.reject(Resp.error());
+      return Resp.error();
     }
   }
 
@@ -99,10 +99,10 @@ class CategpriesServices {
         return Resp.error(`Data subcategory with id ${payload.id} failed to be deleted`);
       }
 
-      return Promise.resolve(Resp.success({ message: "SubCategory data deleted successfully" }));
+      return Resp.success({ message: "SubCategory data deleted successfully" });
     } catch (error) {
       console.log(error, `<<< ${__filename} | post()`);
-      return Promise.reject(Resp.error());
+      return Resp.error();
     }
   }
   

@@ -23,7 +23,7 @@ import Joi from 'joi';
  */
 class Schemas {
   static id = {
-    id: Joi.string().required(),
+    id: Joi.number().min(1).required(),
   };
   
   static post = {

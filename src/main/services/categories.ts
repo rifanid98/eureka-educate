@@ -5,7 +5,7 @@ import { IResponse, Response as Resp } from '../utils/helpers/response';
 import CategoriesRepository from '../repositories/categories';
 import { Category } from '../types';
 
-class CategpriesServices {
+class CategoriesServices {
 
   /**
    * Get
@@ -14,10 +14,10 @@ class CategpriesServices {
   async get(): Promise<IResponse> {
     try {
       const data = await CategoriesRepository.get({});
-      return Promise.resolve(Resp.success({ data }));
+      return Resp.success({ data });
     } catch (error) {
       console.log(error, `<<< ${__filename} | get()`);
-      return Promise.reject(Resp.error());
+      return Resp.error()
     }
   }
 
@@ -37,10 +37,10 @@ class CategpriesServices {
       }
 
       const data = await CategoriesRepository.save(payload);
-      return Promise.resolve(Resp.success({ data }));
+      return Resp.success({ data });
     } catch (error) {
       console.log(error, `<<< ${__filename} | post()`);
-      return Promise.reject(Resp.error());
+      return Resp.error();
     }
   }
 
@@ -71,10 +71,10 @@ class CategpriesServices {
         id: payload.id
       });
 
-      return Promise.resolve(Resp.success({ data: category }));
+      return Resp.success({ data: category });
     } catch (error) {
       console.log(error, `<<< ${__filename} | post()`);
-      return Promise.reject(Resp.error());
+      return Resp.error();
     }
   }
 
@@ -99,13 +99,13 @@ class CategpriesServices {
         return Resp.error(`Data category with id ${payload.id} failed to be deleted`);
       }
 
-      return Promise.resolve(Resp.success({ message: "Category data deleted successfully" }));
+      return Resp.success({ message: "Category data deleted successfully" });
     } catch (error) {
       console.log(error, `<<< ${__filename} | post()`);
-      return Promise.reject(Resp.error());
+      return Resp.error();
     }
   }
   
 }
 
-export default new CategpriesServices();
+export default new CategoriesServices();
