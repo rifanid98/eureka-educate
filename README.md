@@ -54,5 +54,4 @@
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/rifanid98/eureka-educate/blob/master/LICENSE) file for details
 
-Thanks to [Daniel Saputra](https://www.linkedin.com/in/danielwetan/) for the readme layout.# eureka-educate
-# eureka-educate
+Thanks to [Daniel Saputra](https://www.linkedin.com/in/danielwetan/) for the readme layout.
