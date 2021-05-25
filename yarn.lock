@@ -3338,6 +3338,15 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
+sequelize-auto@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/sequelize-auto/-/sequelize-auto-0.8.3.tgz#5ba36e00856c931947f197f729a2124138f2923e"
+  integrity sha512-6bYV7MWYJxc5mpNsGpcvGkhMa9nLWerYDDfdXcpJnFnz8L0zH97HpiU5vRIB2gb5aUg2y8A6HKHgMfz9fUctHA==
+  dependencies:
+    lodash "^4.17.21"
+    mkdirp "^1.0.4"
+    yargs "^16.2.0"
+
 sequelize-cli@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-6.2.0.tgz#fd02bfeae23b8226872f9947f3f8212cc49a4771"
@@ -4032,7 +4041,7 @@ yargs-unparser@2.0.0:
     flat "^5.0.2"
     is-plain-obj "^2.1.0"
 
-yargs@16.2.0:
+yargs@16.2.0, yargs@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-16.2.0.tgz#1c82bf0f6b6a66eafce7ef30e376f49a12477f66"
   integrity sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==
