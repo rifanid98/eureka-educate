@@ -1,0 +1,28 @@
+const path = require('path');
+require("dotenv").config();
+
+let config = {};
+const env = process.env.NODE_ENV;
+switch(env) {
+    case 'development':
+    case 'example':
+    case 'local':
+        config = {
+            'config': path.resolve('src/main/utils/sequelize', 'config.js'),
+            'models-path': path.resolve('src/main', 'models'),
+            'seeders-path': path.resolve('src/main/utils/sequelize', 'seeders'),
+            'migrations-path': path.resolve('src/main/utils/sequelize', 'migrations'),
+        };
+        break;
+
+    default:
+        config = {
+            'config': path.resolve('build/main/utils/sequelize', 'config.js'),
+            'models-path': path.resolve('build/main', 'models'),
+            'seeders-path': path.resolve('build/main/utils/sequelize', 'seeders'),
+            'migrations-path': path.resolve('build/main/utils/sequelize', 'migrations')
+        }
+        break;
+
+}
+module.exports = config;

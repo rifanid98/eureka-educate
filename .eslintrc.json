@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "class-methods-use-this": "off",
+    "camelcase":"off",
+    "no-async-promise-executor": "off",
+    "import/extensions": "off",
+    "prettier/prettier": "error",
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-console": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "no-explicit-any": "off",
+    "prefer-destructuring": "off",
+    "consistent-return": "off",
+    "no-await-in-loop": "off",
+    "no-shadow": "off"
+  }
+}
