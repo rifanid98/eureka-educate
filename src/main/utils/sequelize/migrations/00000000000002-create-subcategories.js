@@ -13,7 +13,7 @@ module.exports = {
         allowNull: true,
         comment: "nama sub kategori"
       },
-      descriptions: {
+      description: {
         type: Sequelize.STRING(255),
         allowNull: true,
         comment: "deskripsi dari sub kategorinya"
