@@ -33,6 +33,7 @@ export type Question = {
   correct_answer_essay?: string | null;
   category_id?: number;
   sub_category_id?: number;
+  image?: string;
   created_at?: string;
   updated_at?: string | null;
 };
