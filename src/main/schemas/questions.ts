@@ -36,6 +36,7 @@ class Schemas {
     correct_answer_essay: Joi.string().trim().required(),
     category_id: Joi.number().min(1).required(),
     sub_category_id: Joi.number().min(1).required(),
+    image: Joi.string().trim().required()
   };
 
   static patch: Record<string, Joi.AnySchema> = {
@@ -49,6 +50,7 @@ class Schemas {
     correct_answer_essay: Joi.string().trim().required(),
     category_id: Joi.number().min(1).required(),
     sub_category_id: Joi.number().min(1).required(),
+    image: Joi.string().trim().required()
   };
 }
 
