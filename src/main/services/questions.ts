@@ -122,7 +122,7 @@ class CategpriesServices {
    */
   async patch(payload: Question): Promise<IResponse> {
     try {
-      const question: Question = await QuestionsRepository.getOne({
+      let question: Question = await QuestionsRepository.getOne({
         id: payload.id,
       });
 
@@ -156,7 +156,15 @@ class CategpriesServices {
         id: question.id,
       });
 
-      return Resp.success({ data });
+      if (!data) {
+        return Resp.error('Failed to update question data');
+      }
+
+      question = await QuestionsRepository.getOne({
+        id: payload.id,
+      });
+
+      return Resp.success({ data: question });
     } catch (error) {
       console.log(error, `<<< ${__filename} | patch()`);
       return Resp.error();
