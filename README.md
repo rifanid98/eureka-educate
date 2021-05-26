@@ -1,4 +1,4 @@
-**eureka-educate** is a simple api endpoint for education application built with Node.js, Express Js as a framework of Node.js and MySQL as a database which has [features](#features).
+**eureka-educate** is a simple api endpoint for education application built with Node.js, Express Js as a framework of Node.js, PostgreSQL as a database and Sequelize as an ORM. Which has [features](#features).
 
 ## :memo: Table Of Content
 
@@ -44,6 +44,7 @@
 
 ## Features
 
+-   [x] Migration
 -   [x] CRUD
 -   [x] CORS allowed
 -   [x] Unit Test
@@ -56,7 +57,8 @@
 
 -   [Node.js](http://nodejs.org/) - JavaScript runtime environment
 -   [Express.js](https://expressjs.com/) - Node.js framework
--   [MySQL](https://www.postgresql.org//) Database
+-   [PostgreSQL](https://www.postgresql.org/) - Database
+-   [Sequelize](https://sequelize.org/) - ORM (Object Relational Mapping)
 
 ## Author
 
