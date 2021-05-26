@@ -113,7 +113,7 @@ class QuestionsController {
       const fieldsToPatch = Object.keys(body);
       var { invalid, result } = await Helpers.validateBody(Schemas.patch, body, fieldsToPatch);
       if (invalid) return res.status(result.status).send(result);
-
+      
       const data = await QuestionsServices.patch({ ...body, id: Number(params.id) });
       return res.status(Status.success).send(data);
     } catch (error) {
