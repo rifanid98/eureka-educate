@@ -1,4 +1,4 @@
-import Status from './Status';
+import Status from './status';
 
 type Error = string | any | any[];
 type Message = string | any | any[];

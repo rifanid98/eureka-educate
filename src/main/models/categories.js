@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.questions, { as: "questions", foreignKey: "category_id"});
+      this.hasMany(models.Questions, { as: "questions", foreignKey: "category_id"});
     }
   };
   Categories.init({
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       comment: "nama kategori"
     },
-    descriptions: {
+    description: {
       type: DataTypes.STRING(255),
       allowNull: true,
       comment: "deskripsi dari kategorinya"
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     },
     updated_at: {
       type: DataTypes.DATE,

@@ -48,7 +48,7 @@ module.exports = {
         allowNull: false,
         comment: "kategori soal",
         references: {
-          model: 'categories',
+          model: 'Categories',
           key: 'id'
         }
       },
@@ -57,9 +57,13 @@ module.exports = {
         allowNull: false,
         comment: "sub kategori soal",
         references: {
-          model: 'sub_categories',
+          model: 'SubCategories',
           key: 'id'
         }
+      },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,

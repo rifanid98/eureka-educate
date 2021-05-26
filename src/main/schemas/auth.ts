@@ -22,10 +22,6 @@ import Joi from 'joi';
  *
  */
 class Schemas {
-  static id = {
-    token: Joi.string().required(),
-  };
-
   static token = {
     token: Joi.string().trim().required(),
   };

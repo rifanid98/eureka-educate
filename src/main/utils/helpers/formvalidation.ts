@@ -1,6 +1,6 @@
-import Joi, { SchemaMap } from 'joi';
+import Joi from 'joi';
 import _ from 'lodash';
-import { ResponseData, Field, Body } from './types';
+import { ResponseData, Field, Schema, Body } from './types';
 
 /**
  * Custom Joi Error Handling
@@ -36,9 +36,9 @@ class FormValidation {
 
   private fields: Body;
 
-  private schema: SchemaMap;
+  private schema: Schema;
 
-  constructor(schema: SchemaMap, fields: Body, field?: Field) {
+  constructor(schema: Schema, fields: Body, field?: Field) {
     this.field = field;
     this.fields = fields;
     this.schema = schema;
@@ -53,7 +53,7 @@ class FormValidation {
     const fieldsKeys: string[] = Object.keys(this.fields).sort();
 
     if (this.field) {
-      const tempKeys: SchemaMap = {};
+      const tempKeys: Record<string, unknown> = {};
       this.field.forEach((item: string) => {
         if (item in this.schema) {
           tempKeys[item] = this.schema[item];
@@ -67,22 +67,21 @@ class FormValidation {
     schemaKeys.sort();
     fieldsKeys.sort();
 
-    const isSchemaMatch: boolean = _.isEqual(schemaKeys, fieldsKeys);
-
-    if (!isSchemaMatch) {
+    const match: boolean = _.isEqual(schemaKeys, fieldsKeys);
+    if (!match) {
       const notRequired: string[] = [];
       const missing: string[] = [];
 
       schemaKeys.forEach((schemaKey) => {
-        const isFieldMatch = fieldsKeys.findIndex((fieldsKey) => fieldsKey === schemaKey);
-        if (isFieldMatch < 0) {
+        const match = fieldsKeys.findIndex((fieldsKey) => fieldsKey === schemaKey);
+        if (match < 0) {
           missing.push(schemaKey);
         }
       });
 
       fieldsKeys.forEach((schemaKey) => {
-        const isFieldMatch = schemaKeys.findIndex((fieldsKey) => fieldsKey === schemaKey);
-        if (isFieldMatch < 0) {
+        const match = schemaKeys.findIndex((fieldsKey) => fieldsKey === schemaKey);
+        if (match < 0) {
           notRequired.push(schemaKey);
         }
       });
@@ -98,7 +97,6 @@ class FormValidation {
         },
       });
     }
-
     return response({ valid: true });
   }
 
@@ -121,8 +119,8 @@ class FormValidation {
     fields.sort();
 
     for (let i = 0; i < schemas.length; i += 1) {
-      const schema: SchemaMap = { [schemas[i]]: this.schema[schemas[i]] };
-      const field: SchemaMap = { [fields[i]]: this.fields[fields[i]] };
+      const schema: Record<string, any> = { [schemas[i]]: this.schema[schemas[i]] };
+      const field: Record<string, any> = { [fields[i]]: this.fields[fields[i]] };
 
       const validate: Promise<any> = Joi.object(schema).validateAsync(field);
 
@@ -177,14 +175,13 @@ class FormValidation {
 
     const dynamicSchema = Object.keys(this.schema)
       .filter((key) => this.field?.includes(key))
-      .reduce((obj: SchemaMap, key) => {
+      .reduce((obj: Record<string, any>, key) => {
         const tempObj = obj;
         tempObj[key] = this.schema[key];
         return tempObj;
       }, {});
 
     const validate = Joi.object(dynamicSchema).validateAsync(this.fields);
-
     return validate
       .then(() => {
         return response({ valid: true });

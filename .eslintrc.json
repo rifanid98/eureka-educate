@@ -26,6 +26,11 @@
     "prefer-destructuring": "off",
     "consistent-return": "off",
     "no-await-in-loop": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "no-var": "off",
+    "vars-on-top": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "no-redeclare": "off",
+    "no-unused-express": "off"
   }
 }

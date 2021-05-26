@@ -5,14 +5,16 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import compression from 'compression';
 import { config as dotenv } from 'dotenv';
+import path from "path";
 
-import Status from './utils/helpers/Status';
-import Routes from './routes/Index';
-
+import Status from './utils/helpers/status';
+import Routes from './routes';
+import Helpers from './utils/helpers/helpers';
 class App {
   public app: Application;
 
   constructor() {
+    Helpers.setAppRoot(path.resolve(__dirname));
     this.app = express();
     this.plugins();
     this.routes();
