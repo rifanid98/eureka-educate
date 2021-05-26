@@ -20,21 +20,30 @@
 
 1. Clone this repository:
    `git clone https://github.com/rifanid98/eureka-educate`
-2. Start XAMPP
-3. Database configuration:
-    - Open http://localhost/phpmyadmin in the browser
-    - Import database, select `eurekaeducate.sql` file from project folder
-4. Start the server:
+2. Start PostgreSQL
+3. Create eureka_educate database
+4. Database configuration:
+    Create .env file, and insert this env variables to .env file
+    - DB_HOST_LOCAL=localhost
+    - DB_USER_LOCAL=postgres
+    - DB_PASS_LOCAL=postgres
+    - DB_NAME_LOCAL=eureka_educate
+    - DB_PORT_LOCAL=5432
+5. Run the Unit Test to ensure that programs can run well
+    - Type and run this command `npm run test` or `yarn test` to start the unit test.
+6. Start the server:
     - Open root project folder with command line (terminal, linux. cmd, windows. etc.)
     - Type and run this command `npm install` or `yarn install` to install required dependencies.
-    - Type and run this command `npm dev` or `yarn dev` to start the server.
+    - Type and run this command `npm run tsc` or `yarn tsc` to compile typescript code into compiled javascript code.
+    - Type and run this command `npm run dev` or `yarn dev` to start the server.
     - Make sure there are no other processes that use port 5000
-5. Run app with api testing tools like postman, etc. on http://localhost:5000/eureka-educate/
+7. Run app with api testing tools like postman, etc. on http://localhost:5000/eureka-educate/
 
 ## Features
 
 -   [x] CRUD
 -   [x] CORS allowed
+-   [x] Unit Test
 
 ## Documentation
 
