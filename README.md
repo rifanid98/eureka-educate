@@ -56,7 +56,7 @@
 
 -   [Node.js](http://nodejs.org/) - JavaScript runtime environment
 -   [Express.js](https://expressjs.com/) - Node.js framework
--   [MySQL](https://www.mysql.com/) Database
+-   [MySQL](https://www.postgresql.org//) Database
 
 ## Author
 
