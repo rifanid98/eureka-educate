@@ -160,6 +160,10 @@ class CategpriesServices {
       const { invalid, result }: ValidationResult = await Helpers.validateBody(schema, payload);
       if (invalid) return result;
 
+      if (payload.image) {
+        Helpers.deleteImage(question.image);
+      }
+
       const data = await QuestionsRepository.update(payload, {
         id: question.id,
       });
@@ -199,6 +203,8 @@ class CategpriesServices {
       if (!data) {
         return Resp.error(`Data question with id ${payload.id} failed to be deleted`);
       }
+
+      Helpers.deleteImage(question.image);
 
       return Resp.success({ message: 'Question data deleted successfully' });
     } catch (error) {

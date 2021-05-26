@@ -84,7 +84,7 @@ class Helpers {
    * @param {Request} _
    * @param {string} file_name 
    */
-  static deleteImage(_: Request, file_name = "") {
+  static deleteImage(file_name = "") {
     const targetFile = `${this.assetsPath}/${file_name}`;
     
     if (fs.existsSync(targetFile)) {

@@ -65,7 +65,7 @@ class QuestionsController {
           req.file.mimetype === 'image/png') {
             body.image = req.file.filename;
         } else {
-          Helpers.deleteImage(req, req.file.filename);
+          Helpers.deleteImage(req.file.filename);
           return res.status(Status.badrequest).send(Resp.badrequest("can only use JPEG and PNG format images"));
         }
       }
@@ -108,7 +108,7 @@ class QuestionsController {
           req.file.mimetype === 'image/png') {
             body.image = req.file.filename;
         } else {
-          Helpers.deleteImage(req, req.file.filename);
+          Helpers.deleteImage(req.file.filename);
           return res.status(Status.badrequest).send(Resp.badrequest("can only use JPEG and PNG format images"));
         }
       }
