@@ -60,14 +60,22 @@ class QuestionsController {
     try {
       const body: Question = req.body;
 
+      if (req.file) {
+        if (req.file.mimetype === 'image/jpeg' || 
+          req.file.mimetype === 'image/png') {
+            body.image = req.file.filename;
+        } else {
+          Helpers.deleteImage(req, req.file.filename);
+          return res.status(Status.badrequest).send(Resp.badrequest("can only use JPEG and PNG format images"));
+        }
+      }
+
       if (!body.category_id || !body.sub_category_id) {
         return res.status(Status.badrequest).send(Resp.badrequest('category_id and sub_category_id is required'));
       }
 
       var { invalid, result } = await Helpers.validateBody(
-        {
-          question: Schemas.post.question,
-        },
+        { question: Schemas.post.question, },
         { question: body.question },
       );
       if (invalid) return res.status(result.status).send(result);
@@ -95,6 +103,16 @@ class QuestionsController {
       const params: Question = req.params;
       const body: Question = req.body;
 
+      if (req.file) {
+        if (req.file.mimetype === 'image/jpeg' || 
+          req.file.mimetype === 'image/png') {
+            body.image = req.file.filename;
+        } else {
+          Helpers.deleteImage(req, req.file.filename);
+          return res.status(Status.badrequest).send(Resp.badrequest("can only use JPEG and PNG format images"));
+        }
+      }
+      
       var { invalid, result } = await Helpers.validateBody(Schemas.id, { id: params.id });
       if (invalid) return res.status(result.status).send(result);
 
@@ -103,9 +121,7 @@ class QuestionsController {
       }
 
       var { invalid, result } = await Helpers.validateBody(
-        {
-          question: Schemas.post.question,
-        },
+        { question: Schemas.post.question, },
         { question: body.question },
       );
       if (invalid) return res.status(result.status).send(result);
