@@ -137,12 +137,20 @@ class CategpriesServices {
 
       const schema: Record<string, Joi.AnySchema> = {};
 
+      if (payload.image) {
+        schema["image"] = Schemas.patch["image"];
+      }
+
       // Check, any column that has its contents
       questionKeys.forEach((item: string) => {
         if (question[item] && question[item] !== null && question[item].toString().length > 0) {
           schema[item] = Schemas.patch[item];
         }
       });
+
+      if (question.image && !payload.image) {
+        delete schema["image"];
+      }
 
       type ValidationResult = {
         invalid: boolean;
