@@ -16,7 +16,10 @@
     "prettier:fix": "prettier --write 'src/**/*.ts'",
     "eslint": "eslint 'src/**/*.ts'",
     "eslint:fix": "eslint --fix 'src/**/*.ts'",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'src/**/*test.ts'"
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'src/**/*test.ts'",
+    "test:repository": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'src/main/repositories/*test.ts'",
+    "test:service": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'src/main/services/*test.ts'",
+    "test:controller": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'src/main/controllers/*test.ts'"
   },
   "dependencies": {
     "chai": "^4.3.4",
@@ -28,6 +31,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "faker": "^5.5.3",
     "helmet": "^4.3.1",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
@@ -60,7 +64,6 @@
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react": "7.23.2",
-    "faker": "^5.5.3",
     "nodemon": "^2.0.7",
     "prettier": "2.3.0",
     "sequelize-auto": "^0.8.3",
