@@ -24,11 +24,14 @@
 3. Create eureka_educate database
 4. Database configuration:
     Create .env file, and insert this env variables to .env file
-    - DB_HOST_LOCAL=localhost
-    - DB_USER_LOCAL=postgres
-    - DB_PASS_LOCAL=postgres
-    - DB_NAME_LOCAL=eureka_educate
-    - DB_PORT_LOCAL=5432
+    > - DB_HOST_LOCAL=localhost
+    > - DB_USER_LOCAL=postgres
+    > - DB_PASS_LOCAL=postgres
+    > - DB_NAME_LOCAL=eureka_educate
+    > - DB_PORT_LOCAL=5432
+
+    - Type and run this command `npm run migrate` or `yarn migrate` to start the database migration.
+
 5. Run the Unit Test to ensure that programs can run well
     - Type and run this command `npm run test` or `yarn test` to start the unit test.
 6. Start the server:
