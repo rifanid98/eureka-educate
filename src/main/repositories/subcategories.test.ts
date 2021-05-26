@@ -1,4 +1,4 @@
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
 import faker from 'faker';
 import SubCategoriesRepository from './subcategories';
