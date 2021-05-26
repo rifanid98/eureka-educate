@@ -14,11 +14,19 @@ class App {
   public app: Application;
 
   constructor() {
-    Helpers.setAppRoot(path.resolve(__dirname));
     this.app = express();
+    this.configs();
     this.plugins();
     this.routes();
     dotenv();
+  }
+
+  /**
+   * Configs
+   */
+  protected configs(): void {
+    Helpers.setAppRoot(path.resolve(__dirname));
+    this.app.use("/assets", express.static(Helpers.assetsPath));
   }
 
   /**
