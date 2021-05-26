@@ -72,6 +72,7 @@ class CategoriesServices {
    */
   async patch(payload: Category): Promise<IResponse> {
     try {
+      console.log(payload, "<<< PAYLOAD")
       let category = await CategoriesRepository.getOne({
         id: payload.id,
       });

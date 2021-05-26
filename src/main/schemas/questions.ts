@@ -46,7 +46,7 @@ class Schemas {
     answer_b: Joi.string().trim().required(),
     answer_c: Joi.string().trim().required(),
     answer_d: Joi.string().trim().required(),
-    correct_answer_pg: Joi.string().trim().valid('a', 'b', 'c', 'd').required(),
+    correct_answer_pg: Joi.string().trim().valid('A', 'B', 'C', 'D').required(),
     correct_answer_essay: Joi.string().trim().required(),
     category_id: Joi.number().min(1).required(),
     sub_category_id: Joi.number().min(1).required(),
