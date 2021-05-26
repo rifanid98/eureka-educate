@@ -75,6 +75,10 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
